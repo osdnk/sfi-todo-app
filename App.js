@@ -31,19 +31,18 @@ export default class App extends Component {
   }
 
   clickCheck(key){
-    let taskRef = firebase.database().ref('tasks/' + key);
+    const taskRef = firebase.database().ref('tasks/' + key);
     taskRef.once('value', snap => {
-      let data = snap.val();
+      const data = snap.val();
       data.checked = !data.checked;
       taskRef.update(data);
     })
-    // process clicking an item based on it's eventual firebase id.
   }
 
   addItem(content){
     this.setState({inputText: ''});
     if (content){
-      firebase.database().ref('/tasks').push({"content": content, "checked": false});
+      firebase.database().ref('/tasks').push({content, checked: false});
     }
   }
 
